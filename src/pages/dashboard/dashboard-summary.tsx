@@ -20,7 +20,9 @@ const DashboardSummary = ({
         dateRange={dateRange}
         setDateRange={setDateRange}
       />
-      <DashboardStats dateRange={dateRange} />
+      <div className="mt-6">
+        <DashboardStats dateRange={dateRange} />
+      </div>
     </div>
   );
 };

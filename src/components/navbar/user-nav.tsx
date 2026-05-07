@@ -33,7 +33,7 @@ export function UserNav({
               className="!cursor-pointer "
             />
             <AvatarFallback
-              className="!bg-[var(--secondary-dark-color)] border !border-gray-700
+              className="!bg-[var(--secondary-dark-color)] border !border-white/20
                !text-white"
             >
               {userName.charAt(0).toUpperCase()}
@@ -43,9 +43,7 @@ export function UserNav({
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-56 !bg-[var(--secondary-dark-color)] !text-white
-         !border-gray-700
-        "
+        className="w-56 !bg-[var(--secondary-dark-color)] !text-white !border-white/20"
         align="end"
         forceMount
       >
@@ -53,10 +51,10 @@ export function UserNav({
           <span className="font-semibold">{userName}</span>
           {/* <span className="text-[13px] text-gray-400 font-light">Free Trial (2 days left)</span> */}
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className="!bg-gray-700" />
+        <DropdownMenuSeparator className="!bg-white/10" />
         <DropdownMenuGroup>
           <DropdownMenuItem
-            className="hover:!bg-gray-800 hover:!text-white"
+            className="hover:!bg-white/10 hover:!text-white"
             onClick={onLogout}
           >
             <LogOut className="w-4 h-4 mr-2" />

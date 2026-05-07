@@ -1,12 +1,11 @@
 import { useEffect } from "react";
-import HomeNavigation from "./_component/home-navigation";
-import StartupHeroSection from "./_component/startup-hero-section";
-import FooterSection from "./_component/footer-section";
-import ProblemSection from "./_component/problem-section";
-import SolutionSection from "./_component/solution-section";
-import ProductDemoSection from "./_component/product-demo-section";
-import SectionDivider from "./_component/section-divider";
-import DownloadApp from "./_component/download-app-section";
+import Navigation from "./_component/navigation";
+import HeroSection from "./_component/hero-section";
+import FeaturesSection from "./_component/features-section";
+import HowItWorksSection from "./_component/how-it-works-section";
+import MobileSection from "./_component/mobile-section";
+import CtaSection from "./_component/cta-section";
+import Footer from "./_component/footer";
 
 const Home = () => {
   const scrollToSection = (sectionId: string) => {
@@ -16,53 +15,33 @@ const Home = () => {
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
     }
   };
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth",
-    });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
     document.documentElement.style.scrollBehavior = "smooth";
-
     return () => {
       document.documentElement.style.scrollBehavior = "auto";
     };
   }, []);
 
   return (
-    <div className="min-h-screen home-page-background scroll-smooth">
-      <HomeNavigation
+    <div className="min-h-screen home-page-background">
+      <Navigation
         scrollToSection={scrollToSection}
         scrollToTop={scrollToTop}
       />
-      <div className="pt-20">
-        <StartupHeroSection />
-        <SectionDivider variant="curve" direction="down" />
-
-        <ProblemSection />
-        <SectionDivider variant="wave" direction="up" />
-
-        <SolutionSection />
-        <SectionDivider variant="organic" direction="down" />
-
-        <ProductDemoSection />
-        <SectionDivider variant="slope" direction="up" />
-
-        <DownloadApp />
-        <SectionDivider variant="curve" direction="up" />
-
-        <FooterSection />
-      </div>
+      <HeroSection />
+      <FeaturesSection />
+      <HowItWorksSection />
+      <MobileSection />
+      <CtaSection />
+      <Footer />
     </div>
   );
 };

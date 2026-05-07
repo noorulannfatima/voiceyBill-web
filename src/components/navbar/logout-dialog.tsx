@@ -42,7 +42,7 @@ const LogoutDialog = ({ isOpen, setIsOpen }: LogoutDialogProps) => {
         </DialogHeader>
         <DialogFooter>
           <Button
-            className="text-white !bg-red-500"
+            className="bg-destructive text-white hover:bg-destructive/90"
             disabled={isPending}
             type="button"
             onClick={handleLogout}

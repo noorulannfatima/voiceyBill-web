@@ -8,19 +8,14 @@ interface Props {
   setDateRange?: (range: DateRangeType) => void;
 }
 
-const DashboardHeader = ({
-  title,
-  subtitle,
-  dateRange,
-  setDateRange,
-}: Props) => {
+const DashboardHeader = ({ title, subtitle, dateRange, setDateRange }: Props) => {
   return (
-    <div className="flex flex-col lg:flex-row items-start justify-between space-y-7">
+    <div className="flex flex-col lg:flex-row items-start justify-between gap-6">
       <div className="space-y-1">
-        <h2 className="text-2xl lg:text-4xl font-medium">{title}</h2>
-        <p className="text-white/60 text-sm">{subtitle}</p>
+        <h2 className="text-2xl lg:text-3xl font-semibold text-white">{title}</h2>
+        <p className="text-white/50 text-sm">{subtitle}</p>
       </div>
-      <div className="flex flex-col sm:flex-row justify-end gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row justify-end gap-3">
         <DateRangeSelect
           dateRange={dateRange || null}
           setDateRange={(range) => setDateRange?.(range)}

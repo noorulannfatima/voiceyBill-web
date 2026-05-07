@@ -35,15 +35,15 @@ export const reportColumns: ColumnDef<ReportType>[] = [
     cell: ({ row }) => {
       const status = row.getValue("status") as string;
       const statusStyles = {
-        [_REPORT_STATUS.SENT]: "bg-green-100 text-green-800",
-        [_REPORT_STATUS.FAILED]: "bg-red-100 text-red-800",
-        [_REPORT_STATUS.PENDING]: "bg-yellow-100 text-yellow-800",
-        [_REPORT_STATUS.PROCESSING]: "bg-blue-100 text-blue-800",
-        [_REPORT_STATUS.NO_ACTIVITY]: "bg-gray-100 text-gray-800",
+        [_REPORT_STATUS.SENT]: "bg-primary/10 text-primary",
+        [_REPORT_STATUS.FAILED]: "bg-[var(--surface-alt)] text-muted-foreground",
+        [_REPORT_STATUS.PENDING]: "bg-[var(--surface-border)] text-foreground/70",
+        [_REPORT_STATUS.PROCESSING]: "bg-[var(--brand-purple-tint)] text-foreground",
+        [_REPORT_STATUS.NO_ACTIVITY]: "bg-[var(--surface-subtle)] text-muted-foreground",
       };
 
       const style =
-        statusStyles[status as ReportStatusType] || "bg-gray-100 text-gray-800";
+        statusStyles[status as ReportStatusType] || "bg-[var(--surface-subtle)] text-muted-foreground";
 
       return (
         <span

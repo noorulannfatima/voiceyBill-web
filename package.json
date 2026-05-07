@@ -1,5 +1,6 @@
 {
-  "name": "client",
+  "name": "voiceybill-client",
+  "description": "React web dashboard for VoiceyBill — track income and expenses with voice input, AI receipt scanning, analytics, and scheduled reports.",
   "private": true,
   "version": "0.0.0",
   "type": "module",

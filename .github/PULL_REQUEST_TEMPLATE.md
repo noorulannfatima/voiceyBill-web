@@ -18,8 +18,9 @@ Describe what changed and why.
 
 ## Scope
 
-- [ ] backend
-- [ ] frontend
+- [ ] ui (components / pages)
+- [ ] design (tokens / styles)
+- [ ] state (Redux / API)
 - [ ] CI/CD
 - [ ] docs
 

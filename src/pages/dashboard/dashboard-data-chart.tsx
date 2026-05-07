@@ -28,7 +28,7 @@ interface PropsType {
   dateRange?: DateRangeType;
 }
 
-const COLORS = ["var(--primary)", "var(--color-destructive)"];
+const COLORS = ["var(--brand-green)", "var(--color-destructive)"];
 const TRANSACTION_TYPES = ["income", "expenses"];
 
 const chartConfig = {
@@ -83,9 +83,9 @@ const DashboardDataChart: React.FC<PropsType> = (props) => {
                 </span>
                 <span className="flex items-center justify-center gap-2 text-lg font-semibold leading-none sm:text-3xl">
                   {key === TRANSACTION_TYPES[0] ? (
-                    <TrendingUpIcon className="size-3 ml-2 text-primary" />
+                    <TrendingUpIcon className="size-3 ml-2" style={{ color: "var(--brand-green)" }} />
                   ) : (
-                    <TrendingDownIcon className="size-3 ml-2 text-destructive" />
+                    <TrendingDownIcon className="size-3 ml-2 text-muted-foreground" />
                   )}
                   {key === TRANSACTION_TYPES[0]
                     ? totalIncomeCount
