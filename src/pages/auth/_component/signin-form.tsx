@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
+import PasswordInput from "@/components/password-input";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import { AUTH_ROUTES, PROTECTED_ROUTES } from "@/routes/common/routePath";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -19,6 +20,7 @@ import { Loader } from "lucide-react";
 import { useLoginMutation } from "@/features/auth/authAPI";
 import { useAppDispatch } from "@/app/hook";
 import { setCredentials } from "@/features/auth/authSlice";
+import type { ErrorResponse } from "@/features/auth/authType";
 
 const schema = z.object({
   email: z.string().email("Invalid email address"),
@@ -51,7 +53,17 @@ const SignInForm = ({
       })
       .catch((error) => {
         console.log(error);
-        toast.error(error.data?.message || "Failed to login");
+        const apiError = error as ErrorResponse;
+        if (apiError.data?.errorCode === "AUTH_EMAIL_NOT_VERIFIED") {
+          navigate({
+            pathname: AUTH_ROUTES.VERIFY_OTP,
+            search: createSearchParams({ email: values.email }).toString(),
+          });
+          toast.error(apiError.data?.message || "Please verify your email first");
+          return;
+        }
+
+        toast.error(apiError.data?.message || "Failed to login");
       });
   };
 
@@ -92,7 +104,7 @@ const SignInForm = ({
                 <FormItem>
                   <FormLabel className="!font-normal">Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your password" type="password" {...field} />
+                    <PasswordInput placeholder="Enter your password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -104,14 +116,22 @@ const SignInForm = ({
             Login
           </Button>
         </div>
-        <div className="text-center text-sm">
-          Don&apos;t have an account?{" "}
+        <div className="flex items-center justify-between text-sm">
           <Link
-            to={AUTH_ROUTES.SIGN_UP}
+            to={AUTH_ROUTES.FORGOT_PASSWORD}
             className="underline underline-offset-4"
           >
-            Sign up
+            Forgot password?
           </Link>
+          <span>
+            Don&apos;t have an account?{" "}
+            <Link
+              to={AUTH_ROUTES.SIGN_UP}
+              className="underline underline-offset-4"
+            >
+              Sign up
+            </Link>
+          </span>
         </div>
       </form>
     </Form>

@@ -8,10 +8,11 @@ interface AuthState {
 }
 
 interface User {
-  id: number;
+  id: string;
   name: string;
   email: string;
-  profilePicture: string;
+  profilePicture: string | null;
+  isVerified?: boolean;
 }
 
 interface ReportSetting {

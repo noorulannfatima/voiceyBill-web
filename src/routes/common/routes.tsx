@@ -1,6 +1,11 @@
 import { AUTH_ROUTES, PROTECTED_ROUTES, PUBLIC_ROUTES } from "./routePath";
 import SignIn from "@/pages/auth/sign-in";
 import SignUp from "@/pages/auth/sign-up";
+import VerifyEmail from "@/pages/auth/verify-email";
+import ForgotPassword from "@/pages/auth/forgot-password";
+import VerifyResetPassword from "@/pages/auth/verify-reset-password";
+import SetNewPassword from "@/pages/auth/set-new-password";
+import ResetPassword from "@/pages/auth/reset-password";
 import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import Transactions from "@/pages/transactions";
@@ -17,6 +22,11 @@ export const publicRoutePaths = [
 export const authenticationRoutePaths = [
   { path: AUTH_ROUTES.SIGN_IN, element: <SignIn /> },
   { path: AUTH_ROUTES.SIGN_UP, element: <SignUp /> },
+  { path: AUTH_ROUTES.VERIFY_OTP, element: <VerifyEmail /> },
+  { path: AUTH_ROUTES.FORGOT_PASSWORD, element: <ForgotPassword /> },
+  { path: AUTH_ROUTES.VERIFY_RESET_OTP, element: <VerifyResetPassword /> },
+  { path: AUTH_ROUTES.SET_NEW_PASSWORD, element: <SetNewPassword /> },
+  { path: AUTH_ROUTES.RESET_PASSWORD, element: <ResetPassword /> },
 ];
 
 export const protectedRoutePaths = [

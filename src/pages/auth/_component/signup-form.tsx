@@ -4,7 +4,8 @@ import { Loader } from "lucide-react";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Link, useNavigate } from "react-router-dom";
+import PasswordInput from "@/components/password-input";
+import { Link, createSearchParams, useNavigate } from "react-router-dom";
 import { AUTH_ROUTES } from "@/routes/common/routePath";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -16,6 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useRegisterMutation } from "@/features/auth/authAPI";
+import type { ErrorResponse } from "@/features/auth/authType";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -38,12 +40,24 @@ const SignUpForm = () => {
       .unwrap()
       .then(() => {
         form.reset();
-        toast.success("Sign up successful");
-        navigate(AUTH_ROUTES.SIGN_IN);
+        toast.success("Verification code sent to your email");
+        navigate({
+          pathname: AUTH_ROUTES.VERIFY_OTP,
+          search: createSearchParams({ email: values.email }).toString(),
+        });
       })
       .catch((error) => {
-        console.log(error);
-        toast.error(error.data?.message || "Failed to sign up");
+        const apiError = error as ErrorResponse;
+
+        if (apiError.data?.errorCode === "AUTH_EMAIL_ALREADY_EXISTS") {
+          toast.error(
+            apiError.data?.message ||
+              "An account with this email already exists. Please sign in instead."
+          );
+          return;
+        }
+
+        toast.error(apiError.data?.message || "Failed to sign up");
       });
   };
 
@@ -93,7 +107,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" placeholder="Min. 6 characters" {...field} />
+                  <PasswordInput placeholder="Min. 6 characters" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
