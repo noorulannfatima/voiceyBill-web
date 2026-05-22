@@ -12,8 +12,8 @@ export const useReportActions = () => {
         setResendingReportId(reportId); 
         await resendReport(reportId).unwrap();
         toast.success("Report re-sent to your email");
-      } catch (err: any) {
-        toast.error(err?.data?.message || "Failed to resend report");
+      } catch (error) {
+        toast.error((error as Error)?.message || "Failed to resend report");
       } finally {
         setResendingReportId(null);
       }
