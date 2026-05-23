@@ -210,7 +210,11 @@ export function DataTable<TData>({
       {/* Table */}
       <div className={cn("rounded-md border overflow-x-auto", className)}>
         {isLoading ? (
-          <TableSkeleton columns={6} rows={6} />
+          <TableSkeleton 
+            columns={columns.length} 
+            rows={data.length > 0 ? data.length : 6} 
+            cellHeight={data.length > 0 ? 48.6 : 52.8}
+          />
         ) : (
           <Table
             className={cn(
