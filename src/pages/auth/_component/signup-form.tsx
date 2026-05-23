@@ -22,7 +22,11 @@ import type { ErrorResponse } from "@/features/auth/authType";
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string()
+  .min(8, "Password must be at least 8 characters")
+  .regex(/[A-Z]/, "Must contain uppercase letter")
+  .regex(/[0-9]/, "Must contain a number")
+  .regex(/[^A-Za-z0-9]/, "Must contain special character"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -107,7 +111,7 @@ const SignUpForm = () => {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <PasswordInput placeholder="Min. 6 characters" {...field} />
+                  <PasswordInput placeholder="Min. 8 characters" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
