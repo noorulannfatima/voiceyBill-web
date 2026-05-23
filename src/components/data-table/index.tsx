@@ -121,7 +121,7 @@ export function DataTable<TData>({
   };
 
   const handleFilterChange = (key: string, value: string) => {
-    const updated = { ...filterValues, [key]: value };
+    const updated = { ...filterValues, [key]: value=== "all" ? "": value };
     setFilterValues(updated);
     onFilterChange?.(updated);
   };
@@ -169,6 +169,7 @@ export function DataTable<TData>({
                 </div>
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="all">{label}</SelectItem>
                 {options.map((opt) => (
                   <SelectItem key={opt.value} value={opt.value}>
                     {opt.label}
