@@ -19,10 +19,9 @@ interface SidebarProps {
   className?: string;
   onLinkClick?: () => void;
   collapsed?: boolean;
-  onToggle?: () => void;
 }
 
-const Sidebar = ({ className, onLinkClick, collapsed = false, onToggle }: SidebarProps) => {
+const Sidebar = ({ className, onLinkClick, collapsed = false }: SidebarProps) => {
   const { pathname } = useLocation();
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = useState(false);
   const { onOpenDrawer } = useAddTransactionDrawer();
