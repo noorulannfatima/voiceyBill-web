@@ -18,7 +18,6 @@ const AppLayout = () => {
         <Sidebar
           className="hidden md:flex"
           collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed((v) => !v)}
         />
 
         {/* Right Side: Header and Main Content Page Area */}
