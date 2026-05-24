@@ -245,6 +245,29 @@ body {
   background: rgba(120, 120, 120, 0.2);
 }
 
+/* ── Hero vertical scroll columns ─────────────────────── */
+@keyframes scroll-up {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes scroll-down {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+.animate-scroll-up {
+  animation: scroll-up 18s linear infinite;
+}
+.animate-scroll-up-slow {
+  animation: scroll-up 26s linear infinite;
+}
+.animate-scroll-down {
+  animation: scroll-down 22s linear infinite;
+}
+.scroll-mask {
+  mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent);
+}
+
 /* ── Pulsing Voice Recording Indicator ─────────────────── */
 @keyframes voice-pulse {
   0% {

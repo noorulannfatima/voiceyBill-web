@@ -90,6 +90,16 @@ const getCategoryConfig = (cat: string) => {
   };
 };
 
+const SortHeader = ({ label, column }: { label: string; column: import("@tanstack/react-table").Column<TransactionType> }) => (
+  <button
+    className="flex items-center gap-1 text-left font-bold uppercase tracking-wider hover:text-foreground transition-colors"
+    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+  >
+    {label}
+    <ArrowUpDown className="h-3 w-3 opacity-50 shrink-0" />
+  </button>
+);
+
 export const transactionColumns: ColumnDef<TransactionType>[] = [
   {
     id: "select",
@@ -114,15 +124,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Date Created
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <SortHeader label="Date Created" column={column} />,
     cell: ({ row }) => format(row.getValue("createdAt"), "MMM dd, yyyy"),
   },
   {
@@ -131,22 +133,13 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "category",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="!pl-0"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Category
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <SortHeader label="Category" column={column} />,
     cell: ({ row }) => {
       const category = row.original.category || "General";
       const config = getCategoryConfig(category);
       const Icon = config.icon;
       return (
-        <span className={`inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-0.5 rounded-full text-[12px] font-medium border ${config.colorClass} capitalize transition-all duration-200 hover:scale-[1.02] shadow-[0_1px_2px_rgba(0,0,0,0.02)]`}>
+        <span className={`inline-flex items-center gap-1.5 pl-1.5 pr-2.5 py-0.5 rounded-full text-[12px] font-medium border ${config.colorClass} capitalize`}>
           <span className={`flex items-center justify-center h-4.5 w-4.5 rounded-full ${config.iconContainer}`}>
             <Icon className="h-2.5 w-2.5" />
           </span>
@@ -157,15 +150,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "type",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Type
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <SortHeader label="Type" column={column} />,
     cell: ({ row }) => {
       const type = row.getValue("type") as string;
       const isIncome = type === _TRANSACTION_TYPE.INCOME;
@@ -190,7 +175,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "amount",
-    header: () => <div className="text-right">Amount</div>,
+    header: "Amount",
     cell: ({ row }) => {
       const amount = parseFloat(row.getValue("amount"));
       const type = row.getValue("type");
@@ -198,7 +183,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
 
       return (
         <div
-          className={`text-right font-semibold metric-numeric text-[15px] tracking-tight ${
+          className={`font-semibold metric-numeric text-[13px] tracking-tight ${
             isIncome
               ? "text-emerald-600 dark:text-brand-green-light font-bold"
               : "text-foreground font-medium"
@@ -212,15 +197,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "date",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Transaction Date
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <SortHeader label="Transaction Date" column={column} />,
     cell: ({ row }) => format(row.original.date, "MMM dd, yyyy"),
   },
   {
@@ -238,15 +215,7 @@ export const transactionColumns: ColumnDef<TransactionType>[] = [
   },
   {
     accessorKey: "recurringInterval",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-      >
-        Frequently
-        <ArrowUpDown className="ml-2 h-4 w-4" />
-      </Button>
-    ),
+    header: ({ column }) => <SortHeader label="Frequently" column={column} />,
     cell: ({ row }) => {
       const frequency = row.getValue("recurringInterval");
       const nextDate = row.original?.nextRecurringDate;

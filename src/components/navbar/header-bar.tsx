@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sun, Moon, Search, Bell, Menu } from "lucide-react";
+import { Sun, Moon, Bell, Menu, PanelLeft } from "lucide-react";
 import { useTypedSelector } from "@/app/hook";
 import { useTheme } from "@/context/theme-provider";
 import { Button } from "../ui/button";
@@ -10,91 +10,85 @@ import Logo from "../logo/logo";
 
 interface HeaderBarProps {
   onLogoutClick?: () => void;
+  sidebarCollapsed?: boolean;
+  onSidebarToggle?: () => void;
 }
 
-export const HeaderBar = ({ onLogoutClick }: HeaderBarProps) => {
+export const HeaderBar = ({ onLogoutClick, sidebarCollapsed, onSidebarToggle }: HeaderBarProps) => {
   const { user } = useTypedSelector((state) => state.auth);
   const { theme, setTheme } = useTheme();
   const [isMobileDrawerOpen, setIsMobileDrawerOpen] = useState(false);
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 w-full items-center justify-between border-b border-zinc-150/70 dark:border-white/5 bg-background/80 px-4 sm:px-6 backdrop-blur-lg transition-all duration-300">
-        
-        {/* Left Side: Mobile Hamburger Menu & Brand, or Search Bar on Desktop */}
-        <div className="flex items-center gap-3">
+      <header className="sticky top-0 z-30 flex h-14 sm:h-16 w-full items-center justify-between border-b border-zinc-150/70 dark:border-white/5 bg-background/80 px-3 sm:px-6 backdrop-blur-lg transition-all duration-300">
+
+        {/* Left Side: Mobile Hamburger + Brand, Desktop Sidebar Toggle */}
+        <div className="flex items-center gap-2 sm:gap-3">
           {/* Mobile hamburger menu */}
           <Button
             variant="ghost"
             size="icon"
-            className="inline-flex md:hidden text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 rounded-xl h-9.5 w-9.5"
+            className="inline-flex md:hidden text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 rounded-xl h-8 w-8 sm:h-9 sm:w-9"
             onClick={() => setIsMobileDrawerOpen(true)}
           >
-            <Menu className="h-5 w-5" />
+            <Menu className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
 
-          {/* Mobile Brand Logo */}
+          {/* Mobile Brand Logo — icon only on xs, full on sm */}
           <div className="flex md:hidden text-foreground [&_span]:text-foreground [&_img]:opacity-95">
-            <Logo />
+            <div className="sm:hidden"><Logo compact /></div>
+            <div className="hidden sm:flex"><Logo /></div>
           </div>
 
-          {/* Desktop Search Bar (Nexora-inspired) */}
-          <div className="hidden md:flex items-center gap-2.5 px-4 py-2 rounded-full border border-zinc-150/80 dark:border-white/5 bg-zinc-50/50 dark:bg-white/[0.01] hover:bg-zinc-100/50 dark:hover:bg-white/[0.03] transition-all duration-200 cursor-pointer w-64 text-muted-foreground shadow-[inset_0_1px_2px_rgba(0,0,0,0.01)] group">
-            <Search className="h-4 w-4 text-zinc-400 dark:text-zinc-500 group-hover:text-foreground transition-colors duration-200" />
-            <span className="text-[12.5px] font-medium pl-0.5">Search actions...</span>
-            <kbd className="pointer-events-none ml-auto inline-flex h-5 select-none items-center gap-0.5 rounded-md border border-zinc-200 dark:border-white/5 bg-white dark:bg-zinc-900 px-1.5 font-mono text-[9px] font-extrabold text-zinc-400 dark:text-zinc-500 uppercase tracking-widest shadow-sm">
-              ⌘K
-            </kbd>
-          </div>
-        </div>
-
-        {/* Right Side: Theme toggles, bell, and User menu */}
-        <div className="flex items-center gap-2.5 sm:gap-3.5">
-          {/* Search bar trigger visible on mobile header */}
+          {/* Desktop sidebar toggle */}
           <Button
             variant="ghost"
             size="icon"
-            className="md:hidden h-9.5 w-9.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent"
-            title="Search"
+            className="hidden md:inline-flex h-9 w-9 rounded-xl text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 transition-all duration-200"
+            onClick={onSidebarToggle}
+            title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <Search className="h-4.5 w-4.5" />
+            <PanelLeft className="h-4 w-4" />
           </Button>
+        </div>
 
+        {/* Right Side: Theme toggles, bell, and User menu */}
+        <div className="flex items-center gap-1 sm:gap-2">
           {/* Theme toggler */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-9.5 w-9.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 transition-all duration-200"
+            className="h-8 w-8 sm:h-9 sm:w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 transition-all duration-200"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             title="Toggle Theme"
           >
             {theme === "dark" ? (
-              <Sun className="h-4.5 w-4.5 text-primary" />
+              <Sun className="h-4 w-4 text-primary" />
             ) : (
-              <Moon className="h-4.5 w-4.5 text-primary" />
+              <Moon className="h-4 w-4 text-primary" />
             )}
           </Button>
 
-          {/* Notifications bell icon with ambient glow badge (Nexora inspired) */}
-          <div className="relative">
+          {/* Notifications bell — hidden on xs */}
+          <div className="relative hidden sm:block">
             <Button
               variant="ghost"
               size="icon"
-              className="h-9.5 w-9.5 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 transition-all duration-200"
+              className="h-8 w-8 sm:h-9 sm:w-9 rounded-full text-muted-foreground hover:text-foreground hover:bg-muted/65 border border-transparent hover:border-border/30 transition-all duration-200"
               title="Notifications"
             >
-              <Bell className="h-4.5 w-4.5" />
+              <Bell className="h-4 w-4" />
             </Button>
-            {/* Pulsing indicator pill */}
-            <span className="absolute top-1.5 right-1.5 flex h-2 w-2">
+            <span className="absolute top-1.5 right-1.5 flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-green dark:bg-brand-green-light opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-green dark:bg-brand-green-light"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-brand-green dark:bg-brand-green-light"></span>
             </span>
           </div>
 
-          <div className="h-4 w-px bg-zinc-150/60 dark:bg-white/5" />
+          <div className="h-4 w-px bg-zinc-150/60 dark:bg-white/5 hidden sm:block" />
 
-          {/* User profile dropdown popup */}
+          {/* User profile dropdown */}
           <UserNav
             userName={user?.name || ""}
             profilePicture={user?.profilePicture || ""}
