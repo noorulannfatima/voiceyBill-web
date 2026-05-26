@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/form";
 import { useRegisterMutation } from "@/features/auth/authAPI";
 import type { ErrorResponse } from "@/features/auth/authType";
+import { uppercase } from "node_modules/zod/v4/core/regexes.d.cts";
 
 const schema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -38,6 +39,15 @@ const SignUpForm = () => {
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
+
+  const passwordValue = form.watch("password") ?? ""
+  const rules = {
+    length:passwordValue.length >= 8,
+    uppercase:/[A-Z]/.test(passwordValue),
+    number: /[0-9]/.test(passwordValue),
+    special: /[^A-Za-z0-9]/.test(passwordValue),
+    lowercase: /[a-z]/.test(passwordValue),
+  }
 
   const onSubmit = (values: FormValues) => {
     register(values)
@@ -113,6 +123,21 @@ const SignUpForm = () => {
                 <FormControl>
                   <PasswordInput placeholder="Min. 8 characters" {...field} />
                 </FormControl>
+                <div className="mt-2 space-y-1 text-xs">
+        {[
+          { label: "At least 8 characters", valid: rules.length },
+          { label: "One uppercase letter", valid: rules.uppercase },
+          { label: "One lowercase letter", valid: rules.lowercase },
+          { label: "One number", valid: rules.number },
+          { label: "One special character", valid: rules.special },
+        ].map((rule) => (
+          <div key={rule.label} className={`flex items-center gap-1 ${rule.valid ? "text-green-500" : "text-muted-foreground"}`}>
+          {rule.valid ? "✓" : "○"}
+        <span>{rule.label}</span>
+      </div>
+  ))}
+</div>
+                
                 <FormMessage />
               </FormItem>
             )}
