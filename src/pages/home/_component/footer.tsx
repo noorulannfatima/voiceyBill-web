@@ -1,89 +1,113 @@
 import { Link } from "react-router-dom";
-import { Github } from "lucide-react";
+import { Github, Twitter, Linkedin } from "lucide-react";
+
+const productLinks = [
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#" },
+  { label: "Dashboard", href: "/overview" },
+  { label: "Mobile App", href: "#mobile-app" },
+];
+
+const resourceLinks = [
+  { label: "Documentation", href: "#" },
+  { label: "API Reference", href: "#" },
+  { label: "Community", href: "https://github.com/voiceyBill/voiceyBill-web/discussions" },
+  { label: "Changelog", href: "https://github.com/voiceyBill/voiceyBill-web/releases" },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", href: "#" },
+  { label: "Terms of Service", href: "#" },
+  { label: "Security", href: "#" },
+];
 
 const Footer = () => {
   return (
-    <footer className="bg-[var(--app-dark)] text-white py-16 px-4 sm:px-6 lg:px-8 border-t border-white/10">
-      <div className="max-w-6xl mx-auto">
+    <footer className="bg-zinc-950 text-white pt-16 md:pt-24 pb-8 md:pb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-12 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-12 md:mb-24">
 
-          <div className="space-y-4">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="/logo.png"
-                alt="VoiceyBill"
-                className="h-7 w-7 rounded-md object-cover"
-              />
-              <span className="font-semibold text-base tracking-tight text-white">
-                VoiceyBill
-              </span>
+          {/* Brand */}
+          <div className="col-span-2 md:col-span-1">
+            <div className="flex items-center gap-2 mb-6">
+              <img src="/logo.png" alt="VoiceyBill" className="w-8 h-8 rounded-full object-cover shrink-0" />
+              <span className="font-display font-bold text-2xl">VoiceyBill</span>
             </div>
-            <p className="text-white/50 text-sm leading-relaxed max-w-xs">
-              Expense tracking with voice input, receipt scanning, and spend analytics.
+            <p className="text-zinc-500 mb-8">
+              Expense tracking with voice input, receipt scanning, and real-time spend analytics.
             </p>
-            <button
-              onClick={() =>
-                window.open(
-                  "https://github.com/voiceyBill/voiceyBill-web",
-                  "_blank"
-                )
-              }
-              className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors"
-            >
-              <Github className="h-4 w-4" />
-              voiceyBill/voiceyBill-web
-            </button>
+            <div className="flex gap-4">
+              <button
+                onClick={() => window.open("https://github.com/voiceyBill/voiceyBill-web", "_blank")}
+                className="text-zinc-500 hover:text-[#9FFF59] transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => window.open("https://twitter.com", "_blank")}
+                className="text-zinc-500 hover:text-[#9FFF59] transition-colors"
+                aria-label="Twitter"
+              >
+                <Twitter className="w-5 h-5" />
+              </button>
+              <button
+                onClick={() => window.open("https://linkedin.com", "_blank")}
+                className="text-zinc-500 hover:text-[#9FFF59] transition-colors"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/30">
+          {/* Product */}
+          <div>
+            <h4 className="font-bold mb-6 text-sm uppercase tracking-widest text-zinc-600">
               Product
             </h4>
-            <ul className="space-y-3">
-              {[
-                { label: "Sign In", href: "/sign-in" },
-                { label: "Get Started", href: "/sign-up" },
-                { label: "Dashboard", href: "/overview" },
-              ].map((item) => (
-                <li key={item.label}>
-                  <Link
-                    to={item.href}
-                    className="text-sm text-white/50 hover:text-white transition-colors"
-                  >
-                    {item.label}
+            <ul className="space-y-4 text-zinc-400">
+              {productLinks.map(({ label, href }) => (
+                <li key={label}>
+                  <Link to={href} className="hover:text-white transition-colors">
+                    {label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="space-y-4">
-            <h4 className="text-xs font-semibold uppercase tracking-[0.15em] text-white/30">
-              GitHub
+          {/* Resources */}
+          <div>
+            <h4 className="font-bold mb-6 text-sm uppercase tracking-widest text-zinc-600">
+              Resources
             </h4>
-            <ul className="space-y-3">
-              {[
-                {
-                  label: "Repository",
-                  href: "https://github.com/voiceyBill/voiceyBill-web",
-                },
-                {
-                  label: "Issues",
-                  href: "https://github.com/voiceyBill/voiceyBill-web/issues",
-                },
-                {
-                  label: "Pull Requests",
-                  href: "https://github.com/voiceyBill/voiceyBill-web/pulls",
-                },
-              ].map((item) => (
-                <li key={item.label}>
+            <ul className="space-y-4 text-zinc-400">
+              {resourceLinks.map(({ label, href }) => (
+                <li key={label}>
                   <button
-                    onClick={() => window.open(item.href, "_blank")}
-                    className="text-sm text-white/50 hover:text-white transition-colors"
+                    onClick={() => window.open(href, "_blank")}
+                    className="hover:text-white transition-colors text-left"
                   >
-                    {item.label}
+                    {label}
                   </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Legal */}
+          <div>
+            <h4 className="font-bold mb-6 text-sm uppercase tracking-widest text-zinc-600">
+              Legal
+            </h4>
+            <ul className="space-y-4 text-zinc-400">
+              {legalLinks.map(({ label, href }) => (
+                <li key={label}>
+                  <Link to={href} className="hover:text-white transition-colors">
+                    {label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -91,9 +115,12 @@ const Footer = () => {
 
         </div>
 
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-          <p className="text-white/30 text-sm">© 2025 VoiceyBill. All rights reserved.</p>
-          <p className="text-white/30 text-sm">Track smarter. Spend wiser.</p>
+        {/* Bottom bar */}
+        <div className="pt-8 md:pt-12 border-t border-white/5 flex flex-col sm:flex-row justify-between items-center gap-3 text-center sm:text-left">
+          <div className="text-zinc-600 text-sm">© 2025 VoiceyBill. All rights reserved.</div>
+          <div className="flex items-center gap-2 text-zinc-600 font-bold">
+            <span className="text-[#9FFF59] italic">Track smarter.</span> Spend wiser.
+          </div>
         </div>
 
       </div>

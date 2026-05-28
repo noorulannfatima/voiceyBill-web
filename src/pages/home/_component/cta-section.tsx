@@ -1,71 +1,67 @@
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useTypedSelector } from "@/app/hook";
+
+const stats = [
+  { value: "50+", label: "Languages" },
+  { value: "99.2%", label: "OCR Accuracy" },
+  { value: "$0", label: "Initial Cost" },
+  { value: "12k+", label: "Active Users" },
+];
 
 const CtaSection = () => {
   const { user, accessToken } = useTypedSelector((state) => state.auth);
   const isAuthenticated = !!(user && accessToken);
 
   return (
-    <section className="py-28 border-t border-border bg-background">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-32 bg-white overflow-hidden">
+      <div className="max-w-4xl mx-auto px-6 text-center">
 
-        <div className="rounded-3xl overflow-hidden bg-[var(--secondary-dark-color)] px-8 py-20 sm:px-16 text-center relative">
+        <h2 className="font-display font-bold text-5xl md:text-7xl mb-8">
+          Ready to track{" "}
+          <br />
+          <span className="text-zinc-400">smarter?</span>
+        </h2>
 
-          {/* Subtle grid texture */}
-          <div
-            className="absolute inset-0 opacity-[0.04] pointer-events-none"
-            style={{
-              backgroundImage: "linear-gradient(var(--brand-green-light) 1px, transparent 1px), linear-gradient(90deg, var(--brand-green-light) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
+        <p className="text-xl text-zinc-500 mb-12">
+          No credit card required. Sign up in two minutes and log your first expense today.
+        </p>
 
-          <div className="relative space-y-7 max-w-xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          {isAuthenticated ? (
+            <Link
+              to="/overview"
+              className="w-full sm:w-auto bg-[#015200] text-white font-bold text-lg px-12 py-5 rounded-2xl hover:bg-black transition-all shadow-xl"
+            >
+              Go to Dashboard
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/sign-up"
+                className="w-full sm:w-auto bg-[#015200] text-white font-bold text-lg px-12 py-5 rounded-2xl hover:bg-black transition-all shadow-xl"
+              >
+                Create free account
+              </Link>
+              <Link
+                to="/sign-in"
+                className="w-full sm:w-auto bg-zinc-100 text-zinc-900 font-bold text-lg px-12 py-5 rounded-2xl hover:bg-zinc-200 transition-all"
+              >
+                Sign in
+              </Link>
+            </>
+          )}
+        </div>
 
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-[var(--brand-green-light)]/70">
-              &gt; Get started
-            </p>
-
-            <h2 className="text-4xl sm:text-5xl font-bold text-white leading-tight">
-              Start tracking in two minutes.
-            </h2>
-
-            <p className="text-white/50 leading-relaxed text-lg">
-              No credit card. No setup fee. Sign up and log your first expense today.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              {isAuthenticated ? (
-                <Button
-                  size="lg"
-                  asChild
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-6 rounded-md text-sm font-semibold"
-                >
-                  <Link to="/overview">Go to Dashboard →</Link>
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    size="lg"
-                    asChild
-                    className="bg-primary text-primary-foreground hover:bg-primary/90 h-11 px-6 rounded-md text-sm font-semibold"
-                  >
-                    <Link to="/sign-up">Create free account →</Link>
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    asChild
-                    className="h-11 px-6 rounded-md text-sm font-semibold border-white/20 text-white hover:bg-white/10 hover:text-white bg-transparent"
-                  >
-                    <Link to="/sign-in">Sign in</Link>
-                  </Button>
-                </>
-              )}
+        {/* Stats */}
+        <div className="mt-16 pt-16 border-t border-zinc-100 grid grid-cols-2 md:grid-cols-4 gap-8">
+          {stats.map(({ value, label }) => (
+            <div key={label}>
+              <div className="font-display font-bold text-2xl">{value}</div>
+              <div className="text-xs text-zinc-400 font-bold uppercase tracking-wider mt-1">
+                {label}
+              </div>
             </div>
-
-          </div>
+          ))}
         </div>
 
       </div>
