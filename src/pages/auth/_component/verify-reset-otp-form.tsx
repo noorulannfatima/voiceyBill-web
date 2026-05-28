@@ -66,7 +66,7 @@ const VerifyResetOtpForm = () => {
           <div className="w-12 h-12 bg-[#F4F4F5] rounded-2xl flex items-center justify-center mb-5">
             <ShieldCheck className="w-6 h-6 text-[#015200]" />
           </div>
-          <h1 className="font-display font-bold text-2xl sm:text-3xl text-zinc-900 tracking-tight">
+          <h1 className="font-display font-bold text-2xl sm:text-3xl text-foreground tracking-tight">
             Check your email
           </h1>
           <p className="text-sm text-zinc-500 mt-1.5">

@@ -74,7 +74,7 @@ const SignInForm = ({
       >
         {/* Heading */}
         <div className="mb-2">
-          <h1 className="font-display font-bold text-2xl sm:text-3xl text-zinc-900 tracking-tight">
+          <h1 className="font-display font-bold text-2xl sm:text-3xl text-foreground tracking-tight">
             Welcome back
           </h1>
           <p className="text-sm text-zinc-500 mt-1.5">

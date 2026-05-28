@@ -3,7 +3,7 @@ import VerifyResetOtpForm from "./_component/verify-reset-otp-form";
 
 const VerifyResetPassword = () => {
   return (
-    <div className="home-page-wrapper min-h-svh bg-[#F4F4F5] relative flex items-center justify-center p-4 sm:p-6">
+    <div className="home-page-wrapper min-h-svh bg-background text-foreground relative flex items-center justify-center p-4 sm:p-6">
       {/* Subtle grid texture */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -18,18 +18,26 @@ const VerifyResetPassword = () => {
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <Link to="/" className="inline-flex items-center gap-2.5">
-            <img src="/logo.png" alt="VoiceyBill" className="w-10 h-10 rounded-full object-cover shrink-0" />
-            <span className="font-display font-bold text-xl tracking-tight text-zinc-900">VoiceyBill</span>
+            <img
+              src="/logo.png"
+              alt="VoiceyBill"
+              className="w-10 h-10 rounded-full object-cover shrink-0"
+            />
+            <span className="font-display font-bold text-xl tracking-tight text-foreground">
+              VoiceyBill
+            </span>
           </Link>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-3xl border border-zinc-200/80 shadow-sm p-8 sm:p-10">
+        <div className="bg-card text-card-foreground rounded-3xl border border-border shadow-sm p-8 sm:p-10">
           <VerifyResetOtpForm />
         </div>
 
-        <p className="text-center text-xs text-zinc-400 mt-6">
-          <Link to="/" className="hover:text-zinc-600 transition-colors">← Back to home</Link>
+        <p className="text-center text-xs text-muted-foreground mt-6">
+          <Link to="/" className="hover:text-foreground transition-colors">
+            ← Back to home
+          </Link>
         </p>
       </div>
     </div>
