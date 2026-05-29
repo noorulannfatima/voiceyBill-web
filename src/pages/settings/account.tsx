@@ -61,7 +61,7 @@ const Account = () => {
       dispatch(logout());
       navigate(PUBLIC_ROUTES.HOME);
       toast.success("Account deleted");
-    } catch (err: any) {
+    } catch (err: unknown) {
       toast.error(err?.data?.message || "Failed to delete account");
     } finally {
       setIsDeleting(false);
