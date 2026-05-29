@@ -37,9 +37,17 @@ const Account = () => {
       setIsSendingOtp(true);
       await sendDeleteAccountOtp().unwrap();
       toast.success("OTP sent to your email");
-    } catch (err: unknown) {
-      toast.error(err?.data?.message || "Unable to send OTP");
-    } finally {
+    } } catch (err: unknown) {
+  const message =
+    typeof err === "object" &&
+    err !== null &&
+    "data" in err &&
+    typeof (err as any).data?.message === "string"
+      ? (err as any).data.message
+      : "Unable to send OTP";
+
+  toast.error(message);
+}finally {
       setIsSendingOtp(false);
     }
   };
@@ -61,9 +69,17 @@ const Account = () => {
       dispatch(logout());
       navigate(PUBLIC_ROUTES.HOME);
       toast.success("Account deleted");
-    } catch (err: unknown) {
-      toast.error(err?.data?.message || "Failed to delete account");
-    } finally {
+    } } catch (err: unknown) {
+  const message =
+    typeof err === "object" &&
+    err !== null &&
+    "data" in err &&
+    typeof (err as any).data?.message === "string"
+      ? (err as any).data.message
+      : "Failed to delete account";
+
+  toast.error(message);
+} finally {
       setIsDeleting(false);
       setIsOpen(false);
       setConfirmText("");
