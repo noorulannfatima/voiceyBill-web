@@ -37,7 +37,7 @@ const Account = () => {
       setIsSendingOtp(true);
       await sendDeleteAccountOtp().unwrap();
       toast.success("OTP sent to your email");
-    } } catch (err: unknown) {
+    } catch (err: unknown) {
   const message =
     typeof err === "object" &&
     err !== null &&
@@ -69,7 +69,7 @@ const Account = () => {
       dispatch(logout());
       navigate(PUBLIC_ROUTES.HOME);
       toast.success("Account deleted");
-    } } catch (err: unknown) {
+    } catch (err: unknown) {
   const message =
     typeof err === "object" &&
     err !== null &&
