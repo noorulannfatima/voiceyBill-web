@@ -24,7 +24,9 @@ export const PROTECTED_ROUTES = {
   OVERVIEW: "/overview",
   TRANSACTIONS: "/transactions",
   REPORTS: "/reports",
+  BUDGET: "/budget",
   SETTINGS: "/settings",
   SETTINGS_APPEARANCE: "/settings/appearance",
   SETTINGS_BILLING: "/settings/billing",
+  SETTINGS_SECURITY: "/settings/security",
 };
