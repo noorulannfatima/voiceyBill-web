@@ -1,15 +1,13 @@
+import { downloadFile } from "./downloadFile";
 
+export function downloadCsv(blob: Blob, filename?: string): void {
+  // Ensure we have a CSV blob with proper type
+  const csvBlob = new Blob([blob], {
+    type: "text/csv;charset=utf-8;",
+  });
 
-export function downloadFile(blob: Blob, filename: string): void {
-  const url = window.URL.createObjectURL(blob);
+  const safeName =
+    filename ?? `export-${new Date().toISOString().split("T")[0]}.csv`;
 
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-
-  window.URL.revokeObjectURL(url);
+  downloadFile(csvBlob, safeName);
 }
