@@ -207,7 +207,7 @@ export default function Transactions() {
       setIsExporting(false);
     }
   };
-  
+
   const safeData = data?.transactions ?? [];
   const safePagination = {
     totalItems: data?.pagination?.totalCount ?? 0,
@@ -216,27 +216,31 @@ export default function Transactions() {
     pageSize: filters.pageSize ?? 20,
   };
 
+  const ActionButtons = () => (
+    <div className="flex flex-col sm:flex-row gap-2">
+      <div className="flex gap-2">
+        <ImportTransactionModal />
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => setExportModalOpen(true)}
+          disabled={isExporting}
+          className="gap-2 text-black dark:text-white"
+        >
+          <Download className="h-4 w-4" />
+          {isExporting ? "Exporting..." : "Export"}
+        </Button>
+      </div>
+      <AddTransactionDrawer />
+    </div>
+  );
+
   return (
     <PageLayout
       title="All Transactions"
       subtitle="Showing all transactions"
       addMarginTop
-      rightAction={
-        <div className="flex items-center gap-2">
-          <ImportTransactionModal />
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setExportModalOpen(true)}
-            disabled={isExporting}
-            className="gap-2 text-black dark:text-white"
-          >
-            <Download className="h-4 w-4" />
-            {isExporting ? "Exporting..." : "Export"}
-          </Button>
-          <AddTransactionDrawer />
-        </div>
-      }
+      rightAction={<ActionButtons />}
     >
       <ExportTransactionModal
         open={exportModalOpen}
